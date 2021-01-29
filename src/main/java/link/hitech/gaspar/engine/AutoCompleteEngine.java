@@ -3,10 +3,7 @@ package link.hitech.gaspar.engine;
 import com.sun.source.tree.Tree;
 import link.hitech.gaspar.entity.Suggestion;
 
-import java.util.Comparator;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public class AutoCompleteEngine {
 
@@ -25,7 +22,14 @@ public class AutoCompleteEngine {
     };
 
 
-    // add
+    public void add(Suggestion s) {
+        List<String> fragments = Fragmenter.getFragments(s);
+        List<AutoCompleteFragment> afragments = new ArrayList<>();
+        for (String f : fragments) {
+            afragments.add(new AutoCompleteFragment(s, f));
+        }
+        tree.addAll(afragments);
+    }
 
     public Set<Suggestion> autocomplete (String query, int limit) {
         String normalized = Fragmenter.normalize(query); // matri
