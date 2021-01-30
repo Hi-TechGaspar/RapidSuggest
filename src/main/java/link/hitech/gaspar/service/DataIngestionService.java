@@ -2,7 +2,7 @@ package link.hitech.gaspar.service;
 
 import link.hitech.gaspar.engine.AutoCompleteEngine;
 import link.hitech.gaspar.entity.Suggestion;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Data
 public class DataIngestionService {
 
 
