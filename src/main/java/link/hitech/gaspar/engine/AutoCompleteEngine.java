@@ -32,6 +32,10 @@ public class AutoCompleteEngine {
     }
 
     public Set<Suggestion> autocomplete (String query, int limit) {
+        if (query.isEmpty()) {
+            return new HashSet();
+        }
+
         String normalized = Fragmenter.normalize(query); // matri
         TreeSet<Suggestion> results = new TreeSet(SCORE_COMPARATOR);
 
