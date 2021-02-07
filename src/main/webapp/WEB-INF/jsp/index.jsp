@@ -5,6 +5,7 @@
     <head>
         <title>Hi-Tech Gaspar Rapid Suggest!</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<c:url value="/resources/css/rapidsuggest.css"/>" rel="stylesheet">
     </head>
 
     <body>
@@ -18,16 +19,22 @@
 
                         <input id="rapidsuggest" class="form-control" type="text" placeholder="Let's Autocomplete!" >
 
+                        <script type="text/javascript" src="<c:url value="/resources/js/util.js"/>"></script>
                         <script type="text/javascript" src="<c:url value="/resources/js/rapidsuggest.js"/>"></script>
                         <script>
-                            RapidSuggest(document.getElementById('rapidsuggest'))
+                            var groups = [];
+                            groups.push('movies');
+                            groups.push('people');
+                            RapidSuggest(document.getElementById('rapidsuggest'), {
+                                url: location.protocol + '//' + location.host + '/rapidsuggest',
+                                number: 20,
+                                groups: groups
+                            });
                         </script>
-
                    </div>
                  </div>
             </div>
         </div>
-
 
     </body>
 

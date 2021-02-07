@@ -1,5 +1,6 @@
 package link.hitech.gaspar.controller;
 
+import link.hitech.gaspar.controller.serializer.SuggestionSerializer;
 import link.hitech.gaspar.entity.Suggestion;
 import link.hitech.gaspar.service.DataIngestionService;
 import link.hitech.gaspar.service.RapidSuggestService;
@@ -32,7 +33,8 @@ public class RestAPIController {
                                        @RequestParam(name = "n", defaultValue = "10") int n,
                                         @RequestParam(name = "g", defaultValue = "movies,people") String groups) {
         Set<Suggestion> results = rapidSuggestService.getSuggestions(n, groups, query);
-        return new ResponseEntity(results, HttpStatus.OK);
+        String json = SuggestionSerializer.serialize(results, query);
+        return new ResponseEntity(json, HttpStatus.OK);
     }
 
 
