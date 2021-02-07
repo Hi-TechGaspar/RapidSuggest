@@ -1,5 +1,7 @@
 package link.hitech.gaspar.controller;
 
+import io.micrometer.core.annotation.Timed;
+
 import link.hitech.gaspar.controller.serializer.SuggestionSerializer;
 import link.hitech.gaspar.entity.Suggestion;
 import link.hitech.gaspar.service.DataIngestionService;
@@ -22,12 +24,15 @@ public class RestAPIController {
     @Autowired
     RapidSuggestService rapidSuggestService;
 
+    @Timed(value = "rapidsuggest.post.time", description = "Time spent posting new suggestions")
     @PostMapping(value = "/post", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity postSuggestions(@RequestBody List<Suggestion> suggestions) {
         dataIngestionService.submitSuggestions(suggestions);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://www.YourWebsite.com")
+    @Timed(value = "rapidsuggest.autocomplete.time", description = "Time spent autocompleting a query")
     @GetMapping(value = "/rapidsuggest", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity autocomplete(@RequestParam("q") String query,
                                        @RequestParam(name = "n", defaultValue = "10") int n,
